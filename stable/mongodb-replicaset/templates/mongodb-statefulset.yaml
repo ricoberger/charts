@@ -278,12 +278,9 @@ spec:
           livenessProbe:
             exec:
               command:
-                - sh
-                - -c
-                - >-
-                  /bin/mongodb_exporter
-                  --mongodb.uri="{{ template "mongodb-replicaset.connection-string" . }}"
-                  --test
+                - /bin/mongodb_exporter
+                - --mongodb.uri="{{ template "mongodb-replicaset.connection-string" . }}"
+                - --test
             initialDelaySeconds: 30
             periodSeconds: 10
 {{ end }}
