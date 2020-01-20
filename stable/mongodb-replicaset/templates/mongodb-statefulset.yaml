@@ -241,7 +241,7 @@ spec:
             - -c
             - >-
               /bin/mongodb_exporter
-              --mongodb.uri='"'{{ template "mongodb-replicaset.connection-string" . }}'"'
+              --mongodb.uri="{{ template "mongodb-replicaset.connection-string" . }}"
               --mongodb.socket-timeout={{ .Values.metrics.socketTimeout }}
               --mongodb.sync-timeout={{ .Values.metrics.syncTimeout }}
               --web.telemetry-path={{ .Values.metrics.path }}
@@ -265,7 +265,7 @@ spec:
             - name: METRICS_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: "{{ template "mongodb-replicaset.metricsSecret" . }}"
+                  name: {{ template "mongodb-replicaset.metricsSecret" . }}
                   key: password
           {{- end }}
           ports:
@@ -284,7 +284,7 @@ spec:
                 - -c
                 - >-
                   /bin/mongodb_exporter
-                  --mongodb.uri="mongodb://localhost:27017"
+                  --mongodb.uri="mongodb://localhost:{{ .Values.port }}"
                   --test
             initialDelaySeconds: 30
             periodSeconds: 10
