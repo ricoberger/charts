@@ -65,13 +65,13 @@ Create the name for the key secret.
 {{- define "mongodb-replicaset.connection-string" -}}
   {{- $string := "" -}}
   {{- if .Values.auth.enabled }}
-   {{- $string = printf "mongodb://$(METRICS_USER):$(METRICS_PASSWORD)@localhost:%s" (.Values.port|toString) -}}
+   {{- $string = printf "mongodb://$(METRICS_USER):$(METRICS_PASSWORD)@localhost:%s/admin" (.Values.port|toString) -}}
   {{- else -}}
-   {{- $string = printf "mongodb://localhost:%s" (.Values.port|toString) -}}
+   {{- $string = printf "mongodb://localhost:%s/admin" (.Values.port|toString) -}}
   {{- end -}}
 
   {{- if .Values.tls.enabled }}
-  {{- printf "%s/?ssl=true&tlsCertificateKeyFile=/work-dir/mongo.pem&tlsCAFile=/ca/tls.crt" $string -}}
+  {{- printf "%/?ssl=true&tlsCertificateKeyFile=/work-dir/mongo.pem&tlsCAFile=/ca/tls.crt" $string -}}
   {{- else -}}
   {{- printf $string -}}
   {{- end -}}
