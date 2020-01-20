@@ -71,8 +71,8 @@ Create the name for the key secret.
   {{- end -}}
 
   {{- if .Values.tls.enabled }}
-  {{- printf "%s/?ssl=true&tlsCertificateKeyFile=/work-dir/mongo.pem&tlsCAFile=/ca/tls.crt" $string | quote -}}
+  {{- printf "%s/?ssl=true&tlsCertificateKeyFile=/work-dir/mongo.pem&tlsCAFile=/ca/tls.crt" $string -}}
   {{- else -}}
-  {{- printf $string | quote -}}
+  {{- printf $string -}}
   {{- end -}}
 {{- end -}}
