@@ -65,9 +65,9 @@ Create the name for the key secret.
 {{- define "mongodb-replicaset.connection-string" -}}
   {{- $string := "" -}}
   {{- if .Values.auth.enabled }}
-    {{- $string = printf "mongodb://%s:%s@localhost:%s" .Values.auth.metricsUser .Values.auth.metricsPassword (.Values.port|toString) -}}
+    {{- $string = printf "mongodb://%s:%s@localhost:%s/admin" .Values.auth.metricsUser .Values.auth.metricsPassword (.Values.port|toString) -}}
   {{- else -}}
-    {{- $string = printf "mongodb://localhost:%s" (.Values.port|toString) -}}
+    {{- $string = printf "mongodb://localhost:%s/admin" (.Values.port|toString) -}}
   {{- end -}}
 
   {{- if and (.Values.tls.enabled) (eq .Values.tls.mode "required") }}
