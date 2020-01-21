@@ -237,15 +237,13 @@ spec:
           image: "{{ .Values.metrics.image.repository }}:{{ .Values.metrics.image.tag }}"
           imagePullPolicy: {{ .Values.metrics.image.pullPolicy | quote }}
           command:
-            - sh
-            - -c
-            - >-
-              /bin/mongodb_exporter
-              --mongodb.uri="{{ template "mongodb-replicaset.connection-string" . }}"
-              --mongodb.socket-timeout={{ .Values.metrics.socketTimeout }}
-              --mongodb.sync-timeout={{ .Values.metrics.syncTimeout }}
-              --web.telemetry-path={{ .Values.metrics.path }}
-              --web.listen-address=:{{ .Values.metrics.port }}
+            - /bin/mongodb_exporter
+          args
+            - '--mongodb.uri="{{ template "mongodb-replicaset.connection-string" . }}"'
+            - '--mongodb.socket-timeout={{ .Values.metrics.socketTimeout }}'
+            - '--mongodb.sync-timeout={{ .Values.metrics.syncTimeout }}'
+            - '--web.telemetry-path={{ .Values.metrics.path }}'
+            - '--web.listen-address=:{{ .Values.metrics.port }}'
           volumeMounts:
           {{- if and (.Values.tls.enabled) }}
             - name: ca
