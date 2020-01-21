@@ -70,7 +70,7 @@ Create the name for the key secret.
     {{- $string = printf "mongodb://localhost:%s" (.Values.port|toString) -}}
   {{- end -}}
 
-  {{- if .Values.tls.enabled }}
+  {{- if and (.Values.tls.enabled) (eq .Values.tls.mode "required") }}
     {{- printf "%s/?ssl=true&tlsCertificateKeyFile=/work-dir/mongo.pem&tlsCAFile=/ca/tls.crt" $string | quote -}}
   {{- else -}}
     {{- printf "%s" $string | quote -}}
